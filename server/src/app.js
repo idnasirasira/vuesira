@@ -1,9 +1,11 @@
-console.log('Node Running')
+console.log('Node Started')
 
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+const {sequelize} = require('./models')
+const config = require('./config/config')
 
 const app = express()
 
@@ -11,17 +13,11 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send({
-        appName: 'Vuesira',
-        appVersion: 'Beta-0.0.1'
-    })
-})
+require('./routes')(app)
 
-app.post('/register', (req, res) => {
-    res.send({
-        message: `Your account { ${req.body.email} } succesfully registered. Have Fun !`,
+sequelize.sync()
+    .then(() => {
+        app.listen(config.port)
+        console.log("Server Started")
     })
-})
-
-app.listen(8081)
+    
