@@ -9,5 +9,8 @@ module.exports = {
             host: 'localhost',
             storage: './vuesira.sqlite'
         }
+    },
+    authentication: {
+        jwtSecret: 'secret'
     }
 }
