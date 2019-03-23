@@ -10,9 +10,15 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn to="/register" flat>
-        Register
-      </v-btn>
+      <template v-if="!$store.state.isUserLoggedIn">
+        <v-btn to="/register" flat>
+          Register
+        </v-btn>
+
+        <v-btn to="/Login" flat>
+          Login
+        </v-btn>
+      </template>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -28,4 +34,3 @@ export default {
   text-decoration: none;
 }
 </style>
-

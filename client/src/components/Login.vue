@@ -19,7 +19,10 @@
               label="password"
             ></v-text-field>
             <div class="has-error" v-html="error"></div>
-            <v-btn @click="login" color="red darken-1" dark>Login</v-btn>
+            <v-btn
+              @click="login"
+              color="red darken-1"
+              dark>Login</v-btn>
           </v-form>
         </div>
       </div>
@@ -29,12 +32,10 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
-
 export default {
-  name: 'login',
   data () {
     return {
-      email: 'arris.smpn6@gmail.com',
+      email: '',
       password: '',
       error: null
     }
@@ -46,7 +47,8 @@ export default {
           email: this.email,
           password: this.password
         })
-        console.log(response.data)
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }
