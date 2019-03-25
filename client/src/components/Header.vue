@@ -1,31 +1,81 @@
 <template>
-  <v-toolbar fixed dark color="red">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-      <router-link tag="a" class="link" to="/">
-        <v-toolbar-title class="white--text">
-          Vuesira
-        </v-toolbar-title>
-      </router-link>
+  <nav>
+    <v-toolbar app dark>
+      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+        <router-link tag="a" class="link" to="/">
+          <v-toolbar-title class="white--text">
+            Vuesira
+          </v-toolbar-title>
+        </router-link>
 
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
-    <v-toolbar-items>
-      <template v-if="!$store.state.isUserLoggedIn">
-        <v-btn to="/register" flat>
-          Register
-        </v-btn>
+      <v-toolbar-items>
+        <template v-if="!$store.state.isUserLoggedIn">
+          <v-btn to="/register" flat>
+            Register
+          </v-btn>
 
-        <v-btn to="/Login" flat>
-          Login
-        </v-btn>
-      </template>
-    </v-toolbar-items>
-  </v-toolbar>
+          <v-btn to="/login" flat>
+            Login
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn @click="logout" flat>
+            <span>Logout </span>
+            <v-icon right>logout</v-icon>
+          </v-btn>
+        </template>
+      </v-toolbar-items>
+    </v-toolbar>
+
+    <v-navigation-drawer v-model="drawer" app dark>
+      <v-layout column align-center>
+        <v-flex class="my-4">
+          <v-avatar size="100">
+            <img src="../assets/default-avatar.png" alt="">
+          </v-avatar>
+        </v-flex>
+      </v-layout>
+      <v-list>
+        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+          <v-list-tile-action>
+            <v-icon class="white--text">{{link.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="white--text"> {{link.text}} </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+  </nav>
 </template>
 
 <script>
+import Popup from './Popup'
 export default {
-
+  components: {
+    Popup
+  },
+  data () {
+    return {
+      drawer: true,
+      links: [
+        { icon: 'dashboard', text: 'Dashboard', route: '/' },
+        { icon: 'folder', text: 'Songs', route: '/songs' },
+        { icon: 'person', text: 'Artist', route: '/artist' }
+      ]
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({
+        name: 'root'
+      })
+    }
+  }
 }
 </script>
 

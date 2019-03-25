@@ -3,11 +3,9 @@
     <v-app>
       <page-header/>
 
-      <main>
-        <v-container>
-          <router-view/>
-        </v-container>
-      </main>
+      <v-content class="ma-4">
+        <router-view/>
+      </v-content>
     </v-app>
   </div>
 </template>
@@ -23,12 +21,5 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

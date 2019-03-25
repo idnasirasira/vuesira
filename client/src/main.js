@@ -12,7 +12,15 @@ import store from '@/store/store'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'md'
+  // theme: {
+  //   primary: '',
+  //   success: '',
+  //   info: '',
+  //   error: ''
+  // }
+})
 
 sync(store, router)
 
