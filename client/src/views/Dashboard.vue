@@ -11,7 +11,7 @@
             small flat color="grey"
             @click="sortBy('title')">
             <v-icon left small>folder</v-icon>
-            <span class="caption text-lowercase">By Project Name</span>
+            <span class="caption text-lowercase">Project</span>
           </v-btn>
           <span>Sort projects by project name</span>
         </v-tooltip>
@@ -21,7 +21,7 @@
             small flat color="grey"
             @click="sortBy('personName')">
             <v-icon left small>person</v-icon>
-            <span class="caption text-lowercase">By Person</span>
+            <span class="caption text-lowercase">Person</span>
           </v-btn>
           <span>Sort projects by project person</span>
         </v-tooltip>
@@ -38,7 +38,7 @@
             <div>{{project.personName}}</div>
           </v-flex>
           <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Due By</div>
+            <div class="caption grey--text">Due Date</div>
             <div>{{project.dueBy}}</div>
           </v-flex>
           <v-flex xs2 sm4 md2>
@@ -63,31 +63,31 @@ export default {
       projects: [
         {
           id: 1,
-          title: 'Create A Website',
-          personName: 'Aris',
-          dueBy: '20 Jan 2019',
+          title: 'Vuesira (Framework)',
+          personName: 'idnasirasira',
+          dueBy: '01 July 2019',
           status: 'ongoing'
         },
         {
           id: 2,
-          title: 'Project Learn',
-          personName: 'Zaky',
-          dueBy: '20 Jan 2019',
+          title: 'Derby Personal Website (Wordpress)',
+          personName: 'idnasirasira',
+          dueBy: '20 Feb 2018',
           status: 'complete'
         },
         {
           id: 3,
-          title: 'Nabung 1 Miliar',
+          title: 'Android App Arisan Online - Kocokin (Native)',
           personName: 'Donny',
-          dueBy: '20 Jan 2019',
-          status: 'failed'
+          dueBy: '20 March 2019',
+          status: 'overdue'
         },
         {
           id: 5,
-          title: 'Aabung 1 Miliar',
-          personName: 'zonny',
-          dueBy: '20 Jan 2019',
-          status: 'failed'
+          title: 'Porto - Bantu (Native Apps)',
+          personName: 'idnasirasira',
+          dueBy: '01 Jan 2020',
+          status: 'complete'
         }
       ]
     }
@@ -110,7 +110,7 @@ export default {
   border-left: 4px solid orange
 }
 
-.project.failed {
+.project.overdue {
   border-left: 4px solid tomato
 }
 
@@ -122,7 +122,7 @@ export default {
   background: orange
 }
 
-.v-chip.failed {
+.v-chip.overdue {
   background: tomato
 }
 </style>
