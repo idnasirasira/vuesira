@@ -27,5 +27,8 @@ export default {
 </script>
 
 <style>
-
+.dt-action-btn {
+  width: 30px !important;
+  height: 30px !important;
+}
 </style>

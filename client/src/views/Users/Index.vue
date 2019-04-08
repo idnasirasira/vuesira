@@ -38,6 +38,7 @@
                   <td class="text-xs-left">{{ data.item.email }}</td>
                   <td class="text-xs-center">
                     <v-btn
+                      class="dt-action-btn"
                       @click="deleteUser(data.item.id)"
                       fab dark small color="error">
                       <v-icon dark>remove</v-icon>
@@ -104,15 +105,22 @@ export default {
       this.loading = false
     },
     async deleteUser (id) {
-      this.loading = true
+      const res = await this.$confirm('Do you want to delete this user?', {
+        title: 'Delete User',
+        color: 'error'
+      })
 
-      let response = (await UsersService.delete(id)).data
+      if (res) {
+        this.loading = true
 
-      this.$toastr(response.param, response.messages, response.param)
+        let response = (await UsersService.delete(id)).data
 
-      this.getDataFromApi()
+        this.$toastr(response.param, response.messages, response.param)
 
-      this.loading = false
+        this.getDataFromApi()
+
+        this.loading = false
+      }
     }
 
   }

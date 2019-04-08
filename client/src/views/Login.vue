@@ -2,7 +2,7 @@
   <v-layout flex align-center justify-center>
     <v-flex md4 xs10 ml-2 mr-2>
       <Panel title="Login">
-        <v-form ref="form">
+        <v-form ref="form" @submit="login">
             <v-text-field
               type="email"
               v-model="email"
@@ -13,8 +13,12 @@
               v-model="password"
               label="password"
             ></v-text-field>
-            <div class="has-error" v-html="error"></div>
+            <v-alert
+              :value=error
+              v-html="error"
+              color="error"></v-alert>
             <v-btn
+              type="submit"
               :loading="loading"
               :disabled="loading"
               color="secondary"
@@ -70,7 +74,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error{
-  color:red;
-}
+
 </style>

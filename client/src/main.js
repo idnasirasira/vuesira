@@ -11,14 +11,8 @@ import store from '@/store/store'
 import 'chartist/dist/chartist.min.css'
 import VueToastr from '@deveodk/vue-toastr'
 import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
-
-Vue.use(VueToastr, {
-  defaultPosition: 'toast-bottom-right',
-  defaultType: 'info',
-  defaultTimeout: 2000
-})
-
-Vue.use(require('vue-chartist'))
+import 'vuetify/src/stylus/app.styl'
+import VuetifyConfirm from 'vuetify-confirm'
 
 Vue.config.productionTip = false
 
@@ -31,6 +25,24 @@ Vue.use(Vuetify, {
   //   error: ''
   // }
 })
+
+Vue.use(VuetifyConfirm, {
+  buttonTrueText: 'Yes',
+  buttonFalseText: 'No',
+  color: 'warning',
+  icon: 'warning',
+  title: 'Warning',
+  width: 350,
+  property: '$confirm'
+})
+
+Vue.use(VueToastr, {
+  defaultPosition: 'toast-bottom-right',
+  defaultType: 'info',
+  defaultTimeout: 2000
+})
+
+Vue.use(require('vue-chartist'))
 
 Vue.mixin({
   methods: {
