@@ -3,12 +3,22 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './components'
 import Vuetify from 'vuetify'
 import { sync } from 'vuex-router-sync'
 import 'vuetify/dist/vuetify.min.css'
 import store from '@/store/store'
-// import VueYouTubeEmbed from 'vue-youtube-embed'
-// import Panel from '@/components/globals/Panel'
+import 'chartist/dist/chartist.min.css'
+import VueToastr from '@deveodk/vue-toastr'
+import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
+
+Vue.use(VueToastr, {
+  defaultPosition: 'toast-bottom-right',
+  defaultType: 'info',
+  defaultTimeout: 2000
+})
+
+Vue.use(require('vue-chartist'))
 
 Vue.config.productionTip = false
 
@@ -20,6 +30,16 @@ Vue.use(Vuetify, {
   //   info: '',
   //   error: ''
   // }
+})
+
+Vue.mixin({
+  methods: {
+    goTo (route) {
+      router.push({
+        name: route
+      })
+    }
+  }
 })
 
 sync(store, router)

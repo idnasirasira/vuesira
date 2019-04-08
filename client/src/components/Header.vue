@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-toolbar app dark>
-      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="$store.state.isUserLoggedIn" @click="drawer = !drawer"></v-toolbar-side-icon>
         <router-link tag="a" class="link" to="/">
           <v-toolbar-title class="white--text">
             Vuesira
@@ -32,9 +32,11 @@
     <v-navigation-drawer v-model="drawer" app dark>
       <v-layout column align-center>
         <v-flex class="my-4">
-          <v-avatar size="100">
-            <img src="../assets/default-avatar.png" alt="">
-          </v-avatar>
+          <router-link tag="a" class="link" to="/user/profile">
+            <v-avatar size="100">
+              <img src="../assets/default-avatar.png" alt="">
+            </v-avatar>
+          </router-link>
         </v-flex>
       </v-layout>
       <v-list>
@@ -59,11 +61,10 @@ export default {
   },
   data () {
     return {
-      drawer: true,
+      drawer: false,
       links: [
         { icon: 'dashboard', text: 'Dashboard', route: '/' },
-        { icon: 'folder', text: 'Songs', route: '/songs' },
-        { icon: 'person', text: 'Artist', route: '/artist' }
+        { icon: 'person', text: 'User', route: '/users' }
       ]
     }
   },
@@ -71,9 +72,7 @@ export default {
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
-      this.$router.push({
-        name: 'root'
-      })
+      this.goTo('login')
     }
   }
 }

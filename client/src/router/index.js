@@ -1,23 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Register from '@/components/Register'
-import Login from '@/components/Login'
-import Songs from '@/components/Songs'
-import CreateSong from '@/components/CreateSong'
+import store from '@/store/store'
 
 /* Page View */
 import Dashboard from '@/views/Dashboard'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
+import UserProfile from '@/views/UserProfile'
+import Users from '@/views/Users/Index'
+import UsersAdd from '@/views/Users/Add'
 
 Vue.use(Router)
+const checkAuthStatus = (to, from, next) => {
+  if (!store.state.isUserLoggedIn) {
+    next('login')
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/',
-      name: 'dashboard',
-      component: Dashboard
-    },
     {
       path: '/register',
       name: 'register',
@@ -29,14 +33,28 @@ export default new Router({
       component: Login
     },
     {
-      path: '/songs',
-      name: 'songs',
-      component: Songs
+      path: '/',
+      name: 'dashboard',
+      component: Dashboard,
+      beforeEnter: checkAuthStatus
     },
     {
-      path: '/songs/create',
-      name: 'songs-create',
-      component: CreateSong
+      path: '/user/profile',
+      name: 'user-profile',
+      component: UserProfile,
+      beforeEnter: checkAuthStatus
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: Users,
+      beforeEnter: checkAuthStatus
+    },
+    {
+      path: '/users/add',
+      name: 'users-add',
+      component: UsersAdd,
+      beforeEnter: checkAuthStatus
     }
   ]
 })

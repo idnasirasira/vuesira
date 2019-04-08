@@ -2,12 +2,12 @@ module.exports = {
     port: 8081,
     db: {
         database: 'vuesira',
-        user: 'vuesira',
-        password: 'vuesira',
+        user: 'root',
+        password: '',
         options: {
-            dialect: 'sqlite',
+            dialect: 'mysql',
             host: 'localhost',
-            storage: './vuesira.sqlite'
+            // storage: './vuesira.sqlite'
         }
     },
     authentication: {

@@ -1,128 +1,250 @@
 <template>
-  <div class="dashboard">
-    <h1 class="subheading grey--text">Dashboard</h1>
+  <v-container
+    fill-height
+    fluid
+    grid-list-xl
+  >
+    <v-layout wrap>
+      <v-flex
+        md12
+        sm12
+        lg4
+      >
+        <material-chart-card
+          :data="dailySalesChart.data"
+          :options="dailySalesChart.options"
+          ratio="ct-double-octave"
+          color="info"
+          type="Line"
+        >
+          <h4 class="title font-weight-light">Daily Sales</h4>
+          <p class="category d-inline-flex font-weight-light">
+            <v-icon
+              color="green"
+              small
+            >
+              mdi-arrow-up
+            </v-icon>
+            <span class="green--text">55%</span>&nbsp;
+            increase in today's sales
+          </p>
 
-    <v-container class="my-5">
+          <template slot="actions">
+            <v-icon
+              class="mr-2"
+              small
+            >
+              access_time
+            </v-icon>
+            <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
+          </template>
+        </material-chart-card>
+      </v-flex>
+      <v-flex
+        md12
+        sm12
+        lg4
+      >
+        <material-chart-card
+          :data="emailsSubscriptionChart.data"
+          :options="emailsSubscriptionChart.options"
+          :responsive-options="emailsSubscriptionChart.responsiveOptions"
+          color="red"
+          type="Bar"
+          ratio="ct-double-octave"
 
-      <v-layout row class="mb-3">
-        <v-tooltip top>
-          <v-btn
-            slot="activator"
-            small flat color="grey"
-            @click="sortBy('title')">
-            <v-icon left small>folder</v-icon>
-            <span class="caption text-lowercase">Project</span>
-          </v-btn>
-          <span>Sort projects by project name</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn
-            slot="activator"
-            small flat color="grey"
-            @click="sortBy('personName')">
-            <v-icon left small>person</v-icon>
-            <span class="caption text-lowercase">Person</span>
-          </v-btn>
-          <span>Sort projects by project person</span>
-        </v-tooltip>
-      </v-layout>
+        >
+          <h4 class="title font-weight-light">Email Subscription</h4>
+          <p class="category d-inline-flex font-weight-light">Last Campaign Performance</p>
 
-      <v-card v-for="project in projects" :key="project.id">
-        <v-layout row wrap :class="`pa-3 project ${project.status}`">
-          <v-flex xs12 md6>
-            <div class="caption grey--text">Project Title</div>
-            <div>{{project.title}}</div>
-          </v-flex>
-          <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Person</div>
-            <div>{{project.personName}}</div>
-          </v-flex>
-          <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Due Date</div>
-            <div>{{project.dueBy}}</div>
-          </v-flex>
-          <v-flex xs2 sm4 md2>
-            <div class="caption grey--text">Status</div>
-            <div>
-              <v-chip small :class="`${project.status} white--text caption my-2`">
-                {{project.status}}
-              </v-chip>
-            </div>
-          </v-flex>
-        </v-layout>
-        <v-divider></v-divider>
-      </v-card>
-    </v-container>
-  </div>
+          <template slot="actions">
+            <v-icon
+              class="mr-2"
+              small
+            >
+              access_time
+            </v-icon>
+            <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
+          </template>
+        </material-chart-card>
+      </v-flex>
+      <v-flex
+        md12
+        sm12
+        lg4
+      >
+        <material-chart-card
+          :data="dataCompletedTasksChart.data"
+          :options="dataCompletedTasksChart.options"
+          color="green"
+          type="Line"
+          ratio="ct-double-octave"
+        >
+          <h3 class="title font-weight-light">Completed Tasks</h3>
+          <p class="category d-inline-flex font-weight-light">Last Last Campaign Performance</p>
+
+          <template slot="actions">
+            <v-icon
+              class="mr-2"
+              small
+            >
+              access_time
+            </v-icon>
+            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+          </template>
+        </material-chart-card>
+      </v-flex>
+      <v-flex
+        sm6
+        xs12
+        md6
+        lg3
+      >
+        <material-stats-card
+          color="green"
+          icon="attach_money"
+          title="Revenue"
+          value="$34,245"
+          sub-icon="access_time"
+          sub-text="Last 24 Hours"
+        />
+      </v-flex>
+      <v-flex
+        sm6
+        xs12
+        md6
+        lg3
+      >
+        <material-stats-card
+          color="orange"
+          icon="storage"
+          title="Used Space"
+          value="49/50"
+          small-value="GB"
+          sub-icon="warning"
+          sub-icon-color="error"
+          sub-text="Get More Space..."
+          sub-text-color="text-primary"
+        />
+      </v-flex>
+      <v-flex
+        sm6
+        xs12
+        md6
+        lg3
+      >
+        <material-stats-card
+          color="red"
+          icon="priority_high"
+          title="Fixed Issues"
+          value="75"
+          sub-icon="sync"
+          sub-text="Tracked from Github"
+        />
+      </v-flex>
+      <v-flex
+        sm6
+        xs12
+        md6
+        lg3
+      >
+        <material-stats-card
+          color="info"
+          icon="person"
+          title="Followers"
+          value="+245"
+          sub-icon="access_time"
+          sub-text="Just Updated"
+        />
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      projects: [
-        {
-          id: 1,
-          title: 'Vuesira (Framework)',
-          personName: 'idnasirasira',
-          dueBy: '01 July 2019',
-          status: 'ongoing'
+      dailySalesChart: {
+        data: {
+          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+          series: [
+            [12, 17, 7, 17, 23, 18, 38]
+          ]
         },
-        {
-          id: 2,
-          title: 'Derby Personal Website (Wordpress)',
-          personName: 'idnasirasira',
-          dueBy: '20 Feb 2018',
-          status: 'complete'
-        },
-        {
-          id: 3,
-          title: 'Android App Arisan Online - Kocokin (Native)',
-          personName: 'Donny',
-          dueBy: '20 March 2019',
-          status: 'overdue'
-        },
-        {
-          id: 5,
-          title: 'Porto - Bantu (Native Apps)',
-          personName: 'idnasirasira',
-          dueBy: '01 Jan 2020',
-          status: 'complete'
+        options: {
+          lineSmooth: this.$chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: 0,
+          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
         }
-      ]
+      },
+      dataCompletedTasksChart: {
+        data: {
+          labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
+          series: [
+            [230, 750, 450, 300, 280, 240, 200, 190]
+          ]
+        },
+        options: {
+          lineSmooth: this.$chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: 0,
+          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        }
+      },
+      emailsSubscriptionChart: {
+        data: {
+          labels: ['Ja', 'Fe', 'Ma', 'Ap', 'Mai', 'Ju', 'Jul', 'Au', 'Se', 'Oc', 'No', 'De'],
+          series: [
+            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+
+          ]
+        },
+        options: {
+          axisX: {
+            showGrid: false
+          },
+          low: 0,
+          high: 1000,
+          chartPadding: {
+            top: 0,
+            right: 5,
+            bottom: 0,
+            left: 0
+          }
+        },
+        responsiveOptions: [
+          ['screen and (max-width: 640px)', {
+            seriesBarDistance: 5,
+            axisX: {
+              labelInterpolationFnc: function (value) {
+                return value[0]
+              }
+            }
+          }]
+        ]
+      }
     }
   },
   methods: {
-    sortBy (prop) {
-      console.log(prop)
-      this.projects.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+    complete (index) {
+      this.list[index] = !this.list[index]
     }
   }
 }
 </script>
-
-<style scoped>
-.project.complete {
-  border-left: 4px solid greenyellow
-}
-
-.project.ongoing {
-  border-left: 4px solid orange
-}
-
-.project.overdue {
-  border-left: 4px solid tomato
-}
-
-.v-chip.complete {
-  background: greenyellow
-}
-
-.v-chip.ongoing {
-  background: orange
-}
-
-.v-chip.overdue {
-  background: tomato
-}
-</style>

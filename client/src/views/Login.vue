@@ -15,12 +15,15 @@
             ></v-text-field>
             <div class="has-error" v-html="error"></div>
             <v-btn
+              :loading="loading"
+              :disabled="loading"
+              color="secondary"
               @click="login"
-              color="red darken-1"
-              dark>Login</v-btn>
+            >
+              Login
+            </v-btn>
           </v-form>
       </Panel>
-
     </v-flex>
   </v-layout>
 </template>
@@ -31,6 +34,8 @@ import Panel from '@/components/Panel'
 export default {
   data () {
     return {
+      loader: null,
+      loading: false,
       email: '',
       password: '',
       error: null
@@ -38,21 +43,28 @@ export default {
   },
   methods: {
     async login () {
+      this.loading = true
       try {
         const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
+        this.loading = false
+
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+
+        this.goTo('dashboard')
       } catch (error) {
         this.error = error.response.data.error
+        this.loading = false
       }
     }
   },
   components: {
     Panel
   }
+
 }
 </script>
 

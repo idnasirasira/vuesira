@@ -1,6 +1,7 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const SongsController = require('./controllers/SongsController')
+const UsersController = require('./controllers/UsersController')
 
 module.exports = (app) => {
     app.get('/', (req, res) => {
@@ -22,4 +23,22 @@ module.exports = (app) => {
 
     app.post('/songs',
         SongsController.post)
+
+    /* 
+        Users
+     */
+    app.get('/users',
+        UsersController.index)
+
+    app.post('/users',
+        UsersController.post)
+
+    app.put('/users',
+        UsersController.store)
+
+    app.delete('/users/:id',
+        UsersController.delete)
+
+    app.post('/users/datatable',
+        UsersController.getDatatable)
 }
