@@ -1,33 +1,79 @@
 <template>
-  <v-layout flex align-center justify-center>
-    <v-flex md4 xs10 ml-2 mr-2>
-      <Panel title="Login">
-        <v-form ref="form" @submit="login">
+  <v-layout align-center justify-center row fill-height>
+    <v-flex md5 sm8 xs12>
+      <v-form ref="form" @submit="login">
+        <v-card>
+          <v-flex class="ml-5 mr-5 pt-4 pb-5">
+            <div class="text-xs-center">
+              <h1 class="al">Login</h1>
+            </div>
+
+            <br />
+
             <v-text-field
               type="email"
               v-model="email"
               label="Email"
+              :rules="rules.email"
             ></v-text-field>
             <v-text-field
               type="password"
               v-model="password"
-              label="password"
+              label="Password"
+              :rules="rules.password"
             ></v-text-field>
             <v-alert
               :value=error
               v-html="error"
               color="error"></v-alert>
+
             <v-btn
+              class="mt-2"
+              block
               type="submit"
               :loading="loading"
               :disabled="loading"
-              color="secondary"
-              @click="login"
+              @click.prevent="validate"
             >
               Login
             </v-btn>
-          </v-form>
-      </Panel>
+
+            <v-layout justify-center row fill-height class="mt-3">
+              <v-flex class="mt-2"><hr></v-flex>
+              <v-flex class="text-xs-center">OR</v-flex>
+              <v-flex class="mt-2"><hr></v-flex>
+            </v-layout>
+
+            <v-layout justify-center column>
+              <v-flex xs12>
+                <v-btn
+                  block
+                  :loading="loading"
+                  :disabled="loading"
+                  @click="loginFacebook"
+                  color="secondary"
+                >
+                  Log in with Facebook
+                </v-btn>
+              </v-flex>
+              <v-flex xs12>
+                <a>
+                  Forgot password?
+                </a>
+              </v-flex>
+            </v-layout>
+
+          </v-flex>
+        </v-card>
+
+        <v-card class="mt-3 pt-3">
+          <v-card-text>
+            <p class="text-xs-center">
+              Don't have an account? <a @click="goTo('register')">Sign Up</a>
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-form>
     </v-flex>
   </v-layout>
 </template>
@@ -42,10 +88,29 @@ export default {
       loading: false,
       email: '',
       password: '',
-      error: null
+      error: null,
+      rules: {
+        email: [
+          v => !!v || 'Email is required'
+        ],
+        password: [
+          v => !!v || 'Password is required'
+        ]
+      }
     }
   },
   methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.login()
+      }
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    resetValidation () {
+      this.$refs.form.resetValidation()
+    },
     async login () {
       this.loading = true
       try {
@@ -61,8 +126,13 @@ export default {
         this.goTo('dashboard')
       } catch (error) {
         this.error = error.response.data.error
-        this.loading = false
+        setTimeout(() => {
+          this.loading = false
+        }, 500)
       }
+    },
+    loginFacebook () {
+      console.log('Login facebook is under Maintenance')
     }
   },
   components: {

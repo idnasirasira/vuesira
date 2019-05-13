@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <v-app>
-      <page-header/>
+
+      <div v-if="$store.state.isUserLoggedIn">
+        <page-header/>
+      </div>
 
       <v-content class="ma-4">
         <router-view/>

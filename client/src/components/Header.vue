@@ -16,14 +16,13 @@
             Register
           </v-btn>
 
-          <v-btn to="/login" flat>
-            Login
+          <v-btn to="/login" icon>
+            <v-icon>logout</v-icon>
           </v-btn>
         </template>
         <template v-else>
-          <v-btn @click="logout" flat>
-            <span>Logout </span>
-            <v-icon right>logout</v-icon>
+          <v-btn @click="logout" icon>
+            <v-icon>logout</v-icon>
           </v-btn>
         </template>
       </v-toolbar-items>
