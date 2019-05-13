@@ -136,7 +136,6 @@ export default {
     },
     async addUser () {
       try {
-
         this.user.full_name = `${this.user.first_name} ${this.user.last_name}`
 
         const response = await UsersService.store(this.user)
